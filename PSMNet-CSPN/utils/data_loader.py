@@ -88,8 +88,10 @@ class DataLoaderSF(object):
             y = self.mean_std(y)
             batch_right.append(y)
            
-            z=read(self.gt_path + z)
+            z = cv2.imread(self.gt_path + z)
+            z = cv2.cvtColor(z, cv2.COLOR_BGR2GRAY)
             z = z[crop_x: crop_x + self.patch_size[0], crop_y: crop_y + self.patch_size[1]]
+            z[z > (self.max_disp-1)] = self.max_disp - 1
             batch_label.append(z)
         return batch_left, batch_right, batch_label
 

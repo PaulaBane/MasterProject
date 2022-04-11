@@ -44,9 +44,15 @@ class Model:
 
         # only compute valid labeled points
         disps_mask = tf.where(self.label > 0., self.disps, self.label)
-        
+        fin_concat=disps_mask
         disps_mask=self.cspn(disps_mask)
-
+        fin_concat=tf.concat([fin_concat,disps_mask],axis=0)
+        fin_concat=tf.transpose(fin_concat, perm=[1,2,0])
+        fin_concat=tf.expand_dims(fin_concat, 0)
+        
+        fin_concat=tf.keras.layers.Conv2D(1,3, padding='same')(fin_concat)
+        fin_concat=tf.squeeze( fin_concat, 3)
+        
         self.loss = self._smooth_l1_loss(disps_mask, self.label)
 
         optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=self.lr)

@@ -1,3 +1,4 @@
+from audioop import avg
 import time
 from utils.data_loader import DataLoaderSF
 from models.model import Model
@@ -7,6 +8,7 @@ import numpy as np
 import re
 import sys
 
+training_losses = []
 def main():
     left_img = '../input/sceneflowdrivingtest/DrivingData/cleanpass/left/'
     right_img = '../input/sceneflowdrivingtest/DrivingData/cleanpass/right/'
@@ -31,6 +33,7 @@ def main():
                 total_train_loss += train_loss
             avg_loss = total_train_loss / (160 // bat_size)
             print('epoch %d avg training loss = %.3f' % (epoch, avg_loss))
+            training_losses.append(avg_loss)
             if epoch % 30 == 0:
                 saver.save(sess, './results/PSMNet.ckpt', global_step=epoch)
 
