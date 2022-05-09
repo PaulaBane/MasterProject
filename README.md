@@ -18,4 +18,4 @@ Order of execution for successful implementation is as follows:
 - train.py
 - predict.py
 
-Kaggle already provides all modules required for implementing this code. An important point to be noted: this code is writtedn in Tensorflow v1.8.
+Kaggle already provides all modules required for implementing this code. An important point to be noted: this code is written in Tensorflow v1.8.
