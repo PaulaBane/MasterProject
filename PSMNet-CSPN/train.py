@@ -10,9 +10,9 @@ import sys
 
 training_losses = []
 def main():
-    left_img = '../input/sceneflowdrivingtest/DrivingData/cleanpass/left/'
-    right_img = '../input/sceneflowdrivingtest/DrivingData/cleanpass/right/'
-    disp_img = '../input/sceneflowdrivingtest/DrivingData/disparity/'
+    left_img = '../input/sceneflow/Driving/cleanpass/left/'
+    right_img = '../input/sceneflow/Driving/cleanpass/right/'
+    disp_img = '../input/sceneflow/Driving/disparity/'
 
     bat_size = 8
     # 128, 192

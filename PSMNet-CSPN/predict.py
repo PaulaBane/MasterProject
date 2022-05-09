@@ -6,17 +6,17 @@ import cv2
 
 
 def main():
-    left_img = '../input/sceneflow-driving1/DrivingDataTest/cleanpass/left/0051.png'
-    right_img = '../input/sceneflow-driving1/DrivingDataTest/cleanpass/right/0051.png'
+    left_img = '../input/sceneflow/DrivingTest/cleanpass/left/0051.png'
+    right_img = '../input/sceneflow/DrivingTest/cleanpass/right/0051.png'
 
     bat_size = 1
     maxdisp = 128
 
     with tf.compat.v1.Session() as sess:
         PSMNet = Model(sess, height=368, weight=1224, batch_size=bat_size, max_disp=maxdisp, lr=0.0001)
-        new_saver = tf.compat.v1.train.import_meta_graph('../input/retrain/results/PSMNet.ckpt-300.meta')
-        new_saver.restore(sess, tf.compat.v1.train.latest_checkpoint('../input/retrain/results/'))
-
+        new_saver = tf.compat.v1.train.import_meta_graph('../input/results/PSMNet.ckpt.meta')
+        ckpt = tf.compat.v1.train.get_checkpoint_state('../input/results/')
+        new_saver.restore(sess, ckpt.model_checkpoint_path)
 
         img_L = cv2.cvtColor(cv2.imread(left_img), cv2.COLOR_BGR2RGB)
         img_L = cv2.resize(img_L, (1224, 368))
